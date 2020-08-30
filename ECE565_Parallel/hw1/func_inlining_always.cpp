@@ -15,7 +15,7 @@ double calc_time(struct timeval start, struct timeval end) {
   }
 };
 
-int add(int a, int b) { return (a + b); }
+inline __attribute__((always_inline)) int add(int a, int b) { return (a + b); }
 
 int main(int argc, char *argv[]) {
   int i, sum, N;
