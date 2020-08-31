@@ -1,10 +1,10 @@
 #! /bin/bash
 #script to run the programs
 
-gcc -O2 -o loop_performance_unrollimg loop_performance_unrolling.c
+gcc -O3 -o loop_performance_fusion loop_performance_fusion.c
 int=1
 while(( $int<=10))
 do
-    ./loop_performance_unrolling 10000000
+    ./loop_performance_fusion 100000000
     let "int++"
 done
