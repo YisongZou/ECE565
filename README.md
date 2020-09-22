@@ -1,3 +1,3 @@
-# ECE560
+# ECE565
 
-Homeworks for ECE560 Performance Optimization and Parallelism
+Homeworks for ECE565 Performance Optimization and Parallelism
