@@ -97,7 +97,6 @@ int hypre_CSRMatrixMatvec(double alpha,
    /*-----------------------------------------------------------------------
     * Do (alpha == 0.0) computation - RDF: USE MACHINE EPS
     *-----------------------------------------------------------------------*/
-   omp_set_num_threads(2);
    if (alpha == 0.0)
    {
 
@@ -138,7 +137,7 @@ int hypre_CSRMatrixMatvec(double alpha,
 
    if (num_rownnz < xpar * (num_rows))
    {
-      //#pragma omp parallel default(shared) private(i, m, jj, j) reduction(+ \
+#pragma omp parallel default(shared) private(i, m, jj, j) reduction(+ \
                                                                     : tempx)
       for (i = 0; i < num_rownnz; i++)
       {
@@ -169,8 +168,8 @@ int hypre_CSRMatrixMatvec(double alpha,
    }
    else
    {
-      //#pragma omp parallel for default(shared) private(i, jj, j) reduction(+ \
-                                                                     : tempx)
+#pragma omp parallel for default(shared) private(i, jj, j) reduction(+ \
+                                                                     : temp)
       for (i = 0; i < num_rows; i++)
       {
          if (num_vectors == 1)
@@ -199,6 +198,7 @@ int hypre_CSRMatrixMatvec(double alpha,
 
    if (alpha != 1.0)
    {
+#pragma omp parallel for default(shared) private(i)
       for (i = 0; i < num_rows * num_vectors; i++)
          y_data[i] *= alpha;
    }

@@ -366,7 +366,6 @@ int hypre_SeqVectorAxpy(double alpha,
    int ierr = 0;
 
    size *= hypre_VectorNumVectors(x);
-   omp_set_num_threads(2);
 #pragma omp parallel for default(shared) private(i)
    for (i = 0; i < size; i++)
       y_data[i] += alpha * x_data[i];

@@ -67,7 +67,6 @@ int hypre_BoomerAMGSeqRelax(hypre_CSRMatrix *A, hypre_Vector *f,
   /*-----------------------------------------------------------------
    * Relax all points.
    *-----------------------------------------------------------------*/
-  omp_set_num_threads(2);
 #pragma omp parallel for default(shared) private(i, jj, ii) reduction(- \
                                                                       : res)
   for (i = 0; i < n; i++) /* interior points first */

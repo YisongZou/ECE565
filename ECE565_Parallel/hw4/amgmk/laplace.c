@@ -65,7 +65,6 @@ GenerateSeqLaplacian(int nx,
    rhs_data = hypre_CTAlloc(double, grid_size);
    x_data = hypre_CTAlloc(double, grid_size);
    sol_data = hypre_CTAlloc(double, grid_size);
-   omp_set_num_threads(2);
 #pragma omp parallel for default(shared) private(i)
    for (i = 0; i < grid_size; i++)
    {
@@ -76,7 +75,7 @@ GenerateSeqLaplacian(int nx,
 
    cnt = 1;
    A_i[0] = 0;
-   //#pragma omp parallel for collapse(3) default(shared) private(iz, iy, ix, cnt)
+
    for (iz = 0; iz < nz; iz++)
    {
       for (iy = 0; iy < ny; iy++)
@@ -107,6 +106,7 @@ GenerateSeqLaplacian(int nx,
 
    row_index = 0;
    cnt = 0;
+
    for (iz = 0; iz < nz; iz++)
    {
       for (iy = 0; iy < ny; iy++)
@@ -158,7 +158,7 @@ GenerateSeqLaplacian(int nx,
 
    x = hypre_SeqVectorCreate(grid_size);
    hypre_VectorData(x) = x_data;
-
+#pragma omp parallel for default(shared) private(i, j)
    for (i = 0; i < grid_size; i++)
       for (j = A_i[i]; j < A_i[i + 1]; j++)
          sol_data[i] += A_data[j];
